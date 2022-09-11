@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- Database Driver -->
+    <classPathEntry
+            location="C:\Users\baizy\AppData\Roaming\JetBrains\IntelliJIdea2022.2\jdbc-drivers\Xerial SQLiteJDBC\3.38.0\sqlite-jdbc-3.38.0.jar"/>
+
+    <context id="demo-pro-001-sqlite">
+        <jdbcConnection driverClass="org.sqlite.JDBC"
+                        connectionURL="jdbc:sqlite:H:\Database\Sqlite\demo-pro-001">
+        </jdbcConnection>
+        <javaModelGenerator targetPackage="com.example.demoprodata.in.pojo"
+                            targetProject="src\main\java">
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.example.demoprodata.in.pojo"
+                         targetProject="src\main\resources">
+        </sqlMapGenerator>
+        <table tableName="demo_pro_001"
+               domainObjectName="DemoPro001"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="true"
+               selectByExampleQueryId="false">
+        </table>
+    </context>
+
+</generatorConfiguration>
