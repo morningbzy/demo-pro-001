@@ -1,10 +1,9 @@
 package com.example.demoproweb.api;
 
-import com.example.demoprodata.out.utils.Utils;
-import com.example.demoprodbwriter.common.TestComponent;
-import com.example.demoprodbwriter.data.DemoPro001;
-import com.example.demoprodbwriter.data.DemoProRepository;
+import com.example.demoproweb.api.requests.LoginRequest;
 import com.example.demoproweb.api.requests.TestRequest;
+import com.example.demoproweb.common.BaseResponse;
+import com.example.demoproweb.jpa.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,32 +17,34 @@ import javax.annotation.Resource;
 @Slf4j
 @Controller
 @ResponseBody
-@RequestMapping(value = "/")
-public class Index {
+@RequestMapping(value = "/api")
+public class Index extends AbstractBaseApi {
 
     @Resource
-    TestComponent testComponent;
-
-    @Resource
-    DemoProRepository repository;
+    UserRepository repository;
 
     @RequestMapping(value = "/test/component")
     public String testComponent() {
-        return testComponent.testComponent();
+        return "...";
     }
 
 
     @RequestMapping(value = "/test")
     public String test() {
-        repository.findAll().forEach(i -> log.info(i.getName()));
-        DemoPro001 entity = new DemoPro001();
-        entity.setName("test");
-        repository.saveAndFlush(entity);
-        return Utils.dateString();
+        repository.findAll().forEach(i -> log.info(i.getAccount()));
+        return "test";
     }
 
     @RequestMapping(value = "/test01", method = RequestMethod.POST)
     public String test01(@RequestBody TestRequest request) {
-        return "Today: " + request.getT() + Utils.dateString();
+        return "Today: " + request.getT();
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public BaseResponse<Object> login(@RequestBody LoginRequest request) {
+        log.info(request.getUsername());
+        log.info(request.getPassword());
+
+        return BaseResponse.success();
     }
 }
